@@ -46,29 +46,24 @@ async function init() {
   // console.log("isValidInsertOrders.....", isValidInsertOrders);
 
   if (true) {
-    // Find user details and their associated orders
-    const userDetailsResponse = await newUserData.findOne({
-      where: { userName: "JohnDoe2" },
-      include: [{ model: userOrders, as: "orders" }],
-    });
-
-    // Access associated orders
-    const ordersData = userDetailsResponse.orders; // An array of associated orders
-
-    console.log("ordersData=====", ordersData);
-
-    if (ordersData && ordersData.length > 0) {
-      ordersData.forEach((order) => {
-        const ordersValue = order.orders; // Access the 'orders' property for each order
-        console.log("Orders Value:", ordersValue);
-      });
-    } else {
-      console.log("No orders found for this user.");
-    }
-    // let isValidInsert = await userData.findOne({
-    //   where: { username: "helloworld" },
+    ////---------------------------------------Association Based Orders Fetch-----------------------
+    // // Find user details and their associated orders
+    // const userDetailsResponse = await newUserData.findOne({
+    //   where: { userName: "JohnDoe2" },
+    //   include: [{ model: userOrders, as: "orders" }],
     // });
-    // let isValidInsert = await newUserData.findAll();
+    // // Access associated orders
+    // const ordersData = userDetailsResponse.orders; // An array of associated orders
+    // console.log("ordersData=====", ordersData);
+    // if (ordersData && ordersData.length > 0) {
+    //   ordersData.forEach((order) => {
+    //     const ordersValue = order.orders; // Access the 'orders' property for each order
+    //     console.log("Orders Value:", ordersValue);
+    //   });
+    // } else {
+    //   console.log("No orders found for this user.");
+    // }
+    ////---------------------------------------My earlier code - fetch without association-------------
     // let isValidInsert = await newUserData.findOne({
     //   //We can pass one or more than one keys inside where condition.
     //   where: {
@@ -82,7 +77,7 @@ async function init() {
     //
     //
     //
-    //email encrption area.....
+    ////---------------------------------------email encrption area.....-------------
     // async function encryptEmails() {
     //   const t = await conn.sequelize.transaction();
     //   try {
