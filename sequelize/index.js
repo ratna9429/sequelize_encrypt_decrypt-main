@@ -97,16 +97,14 @@ const userOrders = db.models.user_orders;
 const newUserData = db.models.user_details;
 
 // Define the association between user_details and user_orders
-newUserData.hasMany(userOrders, {
-  foreignKey: "userName", // foreign key in user_orders that links to userName in user_details
-  sourceKey: "userName", // primary key in user_details
-  as: "orders", // alias for the association
+userOrders.belongsTo(newUserData, {
+  foreignKey: "userId",
+  targetKey: "id",
 });
 
-userOrders.belongsTo(newUserData, {
-  foreignKey: "userName",
-  targetKey: "userName",
-  as: "user", // alias for the association
+newUserData.hasMany(userOrders, {
+  foreignKey: "userId", // foreign key in user_orders that links to userName in user_details
+  as: "orders", // alias for the association
 });
 
 // We export the sequelize connection instance to be used around our app.

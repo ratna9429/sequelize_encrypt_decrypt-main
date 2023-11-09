@@ -13,6 +13,9 @@ export default function (sequelize, DataTypes) {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    userId: {
+      type: DataTypes.INTEGER(10),
+    },
     userName: {
       type: DataTypes.STRING(32),
     },
