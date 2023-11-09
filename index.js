@@ -34,36 +34,36 @@ async function init() {
   const userOrdersFakeData = {
     userId: 1,
     userName: "JohnDoe3",
-    orders: "apple,banana",
+    orders: "one,chiku",
   };
 
   const t = await conn.sequelize.transaction();
-  let isValidInsert = await newUserData.create(userDetailsFakeData);
+  // let isValidInsert = await newUserData.create(userDetailsFakeData);
 
-  console.log("isValidInsert.....", isValidInsert);
+  // console.log("isValidInsert.....", isValidInsert);
 
-  let isValidInsertOrders = await userOrders.create(userOrdersFakeData);
+  // let isValidInsertOrders = await userOrders.create(userOrdersFakeData);
 
-  console.log("isValidInsertOrders.....", isValidInsertOrders);
+  // console.log("isValidInsertOrders.....", isValidInsertOrders);
 
   if (true) {
     ////---------------------------------------Association Based Orders Fetch-----------------------
-    // //Find user details and their associated orders
-    // const userDetailsResponse = await newUserData.findOne({
-    //   where: { userName: "JohnDoe2" },
-    //   include: [{ model: userOrders, as: "orders" }],
-    // });
-    // // Access associated orders
-    // const ordersData = userDetailsResponse && userDetailsResponse.orders; // An array of associated orders
-    // console.log("ordersData=====", ordersData);
-    // if (ordersData && ordersData.length > 0) {
-    //   ordersData.forEach((order) => {
-    //     const ordersValue = order.orders; // Access the 'orders' property for each order
-    //     console.log("Orders Value:", ordersValue);
-    //   });
-    // } else {
-    //   console.log("No orders found for this user.");
-    // }
+    //Find user details and their associated orders
+    const userDetailsResponse = await newUserData.findOne({
+      where: { userName: "JohnDoe3" },
+      include: [{ model: userOrders, as: "orders" }],
+    });
+    // Access associated orders
+    const ordersData = userDetailsResponse && userDetailsResponse.orders; // An array of associated orders
+    console.log("ordersData=====", ordersData);
+    if (ordersData && ordersData.length > 0) {
+      ordersData.forEach((order) => {
+        const ordersValue = order.orders; // Access the 'orders' property for each order
+        console.log("Orders Value:", ordersValue);
+      });
+    } else {
+      console.log("No orders found for this user.");
+    }
     ////---------------------------------------My earlier code - fetch without association-------------
     // let isValidInsert = await newUserData.findOne({
     //   //We can pass one or more than one keys inside where condition.

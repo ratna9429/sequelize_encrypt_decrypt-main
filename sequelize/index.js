@@ -82,6 +82,16 @@ const models = {
   newUserData: newUserDetails(db, Sequelize.DataTypes),
 };
 
+models.userOrders.belongsTo(models.newUserData, {
+  foreignKey: "userId",
+  targetKey: "id",
+});
+
+models.newUserData.hasMany(models.userOrders, {
+  foreignKey: "userId", // foreign key in user_orders that links to userName in user_details
+  as: "orders", // alias for the association
+});
+
 try {
   await db.sync();
   // console.log("db Synced Successfully!");
@@ -95,17 +105,6 @@ conn.Sequelize = Sequelize;
 // We define all models according to their files.
 const userOrders = db.models.user_orders;
 const newUserData = db.models.user_details;
-
-// Define the association between user_details and user_orders
-userOrders.belongsTo(newUserData, {
-  foreignKey: "userId",
-  targetKey: "id",
-});
-
-newUserData.hasMany(userOrders, {
-  foreignKey: "userId", // foreign key in user_orders that links to userName in user_details
-  as: "orders", // alias for the association
-});
 
 // We export the sequelize connection instance to be used around our app.
 export { db, conn, Op, Query, userOrders, newUserData };
